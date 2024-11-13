@@ -1,3 +1,4 @@
+# ikun :link: https://blog.amagi.us.kg
 # ikun :link: https://Esgwg.github.io/ikun.github.io 
 ### :page_facing_up: [6](https://Esgwg.github.io/ikun.github.io/tag.html) 
 ### :speech_balloon: 0 

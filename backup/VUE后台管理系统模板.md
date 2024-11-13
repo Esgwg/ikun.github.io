@@ -1,1 +1,1 @@
-[VUE后台管理系统模板](https://vue.easydo.work)
+[VUE后台管理系统模板](http://vue.easydo.work/)

@@ -1,3 +1,6 @@
+[最强异常检测算法，自编码器 ！！](https://mp.weixin.qq.com/s/wvJM4sKsmCHJGchWJTz8zw)
+；
+
 ```python
 '''
 autoencoder based anomaly detection model

@@ -1,0 +1,1 @@
+[即插即用时空动态特征提取和优化的轻量型注意力模块GAU](https://mp.weixin.qq.com/s/UqMmNnQTSKSvD8xK942guQ)

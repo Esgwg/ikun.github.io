@@ -1,0 +1,1 @@
+[场景：由于某些原因，服务器上的conda环境不能通过--name的方式创建，只能通过指定目录即-p的方式，在这种情况下该环境在conda env list中没有显示，无法在jupyter kernel中搜到，只能手动添加。](https://blog.csdn.net/jiangqixing0728/article/details/138629897)

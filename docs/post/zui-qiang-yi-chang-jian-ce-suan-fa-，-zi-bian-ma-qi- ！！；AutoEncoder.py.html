@@ -1012,7 +1012,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <span class="pl-k">import</span> <span class="pl-s1">copy</span>
 <span class="pl-c"># plt.switch_backend('Agg')</span>
 
-<span class="pl-k">from</span> <span class="pl-s1">general_utils</span> <span class="pl-k">import</span> <span class="pl-v">DEVICE</span>
+<span class="pl-k">from</span> <span class="pl-s1">general_utils</span> <span class="pl-k">import</span> <span class="pl-c1">DEVICE</span>
 
 <span class="pl-s1">epoches</span> <span class="pl-c1">=</span> <span class="pl-c1">20</span>
 <span class="pl-s1">lr</span> <span class="pl-c1">=</span> <span class="pl-c1">1e-4</span>
@@ -1020,49 +1020,49 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <span class="pl-s1">batch_size</span> <span class="pl-c1">=</span> <span class="pl-c1">1024</span>
 <span class="pl-s1">percentage</span> <span class="pl-c1">=</span> <span class="pl-c1">0.99</span>
 
-<span class="pl-s1">device</span> <span class="pl-c1">=</span> <span class="pl-v">DEVICE</span>
-<span class="pl-s1">criterion</span> <span class="pl-c1">=</span> <span class="pl-s1">nn</span>.<span class="pl-v">MSELoss</span>()
-<span class="pl-s1">getMSEvec</span> <span class="pl-c1">=</span> <span class="pl-s1">nn</span>.<span class="pl-v">MSELoss</span>(<span class="pl-s1">reduction</span><span class="pl-c1">=</span><span class="pl-s">'none'</span>)
+<span class="pl-s1">device</span> <span class="pl-c1">=</span> <span class="pl-c1">DEVICE</span>
+<span class="pl-s1">criterion</span> <span class="pl-c1">=</span> <span class="pl-s1">nn</span>.<span class="pl-c1">MSELoss</span>()
+<span class="pl-s1">getMSEvec</span> <span class="pl-c1">=</span> <span class="pl-s1">nn</span>.<span class="pl-c1">MSELoss</span>(<span class="pl-s1">reduction</span><span class="pl-c1">=</span><span class="pl-s">'none'</span>)
 
 
-<span class="pl-k">class</span> <span class="pl-s1">autoencoder</span>(<span class="pl-s1">nn</span>.<span class="pl-v">Module</span>):
+<span class="pl-k">class</span> <span class="pl-s1">autoencoder</span>(<span class="pl-s1">nn</span>.<span class="pl-c1">Module</span>):
     <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">feature_size</span>, <span class="pl-s1">criter</span><span class="pl-c1">=</span><span class="pl-s">'rmse'</span>): <span class="pl-c"># criter = ['rmse', 'mse'] </span>
-        <span class="pl-en">super</span>(<span class="pl-s1">autoencoder</span>, <span class="pl-s1">self</span>).<span class="pl-en">__init__</span>()
-        <span class="pl-s1">self</span>.<span class="pl-s1">encoder</span> <span class="pl-c1">=</span> <span class="pl-s1">nn</span>.<span class="pl-v">Sequential</span>(<span class="pl-s1">nn</span>.<span class="pl-v">Linear</span>(<span class="pl-s1">feature_size</span>, <span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.75</span>)),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">ReLU</span>(<span class="pl-c1">True</span>),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.75</span>), <span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.5</span>)),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">ReLU</span>(<span class="pl-c1">True</span>),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.5</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.25</span>)),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">ReLU</span>(<span class="pl-c1">True</span>),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.25</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.1</span>)))
+        <span class="pl-en">super</span>(<span class="pl-s1">autoencoder</span>, <span class="pl-s1">self</span>).<span class="pl-c1">__init__</span>()
+        <span class="pl-s1">self</span>.<span class="pl-c1">encoder</span> <span class="pl-c1">=</span> <span class="pl-s1">nn</span>.<span class="pl-c1">Sequential</span>(<span class="pl-s1">nn</span>.<span class="pl-c1">Linear</span>(<span class="pl-s1">feature_size</span>, <span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.75</span>)),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">ReLU</span>(<span class="pl-c1">True</span>),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.75</span>), <span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.5</span>)),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">ReLU</span>(<span class="pl-c1">True</span>),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.5</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.25</span>)),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">ReLU</span>(<span class="pl-c1">True</span>),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.25</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.1</span>)))
 
-        <span class="pl-s1">self</span>.<span class="pl-s1">decoder</span> <span class="pl-c1">=</span> <span class="pl-s1">nn</span>.<span class="pl-v">Sequential</span>(<span class="pl-s1">nn</span>.<span class="pl-v">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.1</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.25</span>)),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">ReLU</span>(<span class="pl-c1">True</span>),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.25</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.5</span>)),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">ReLU</span>(<span class="pl-c1">True</span>),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.5</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.75</span>)),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">ReLU</span>(<span class="pl-c1">True</span>),
-                                     <span class="pl-s1">nn</span>.<span class="pl-v">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.75</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span>)),
+        <span class="pl-s1">self</span>.<span class="pl-c1">decoder</span> <span class="pl-c1">=</span> <span class="pl-s1">nn</span>.<span class="pl-c1">Sequential</span>(<span class="pl-s1">nn</span>.<span class="pl-c1">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.1</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.25</span>)),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">ReLU</span>(<span class="pl-c1">True</span>),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.25</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.5</span>)),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">ReLU</span>(<span class="pl-c1">True</span>),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.5</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.75</span>)),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">ReLU</span>(<span class="pl-c1">True</span>),
+                                     <span class="pl-s1">nn</span>.<span class="pl-c1">Linear</span>(<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span><span class="pl-c1">*</span><span class="pl-c1">0.75</span>),<span class="pl-en">int</span>(<span class="pl-s1">feature_size</span>)),
                                      )
         
-        <span class="pl-s1">self</span>.<span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-v">Inf</span>
-        <span class="pl-s1">self</span>.<span class="pl-s1">criter</span> <span class="pl-c1">=</span> <span class="pl-s1">criter</span>
-        <span class="pl-en">print</span>(<span class="pl-s">f'NOTICE: use <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">self</span>.<span class="pl-s1">criter</span><span class="pl-kos">}</span></span> as the criteration of reconstruction error'</span>)
+        <span class="pl-s1">self</span>.<span class="pl-c1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">Inf</span>
+        <span class="pl-s1">self</span>.<span class="pl-c1">criter</span> <span class="pl-c1">=</span> <span class="pl-s1">criter</span>
+        <span class="pl-en">print</span>(<span class="pl-s">f'NOTICE: use <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">self</span>.<span class="pl-c1">criter</span><span class="pl-kos">}</span></span> as the criteration of reconstruction error'</span>)
 
     <span class="pl-k">def</span> <span class="pl-en">forward</span>(<span class="pl-s1">self</span>, <span class="pl-s1">x</span>):
-        <span class="pl-s1">encode</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-en">encoder</span>(<span class="pl-s1">x</span>)
+        <span class="pl-s1">encode</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-c1">encoder</span>(<span class="pl-s1">x</span>)
         <span class="pl-c"># print('encode', encode)</span>
-        <span class="pl-s1">decode</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-en">decoder</span>(<span class="pl-s1">encode</span>)
+        <span class="pl-s1">decode</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-c1">decoder</span>(<span class="pl-s1">encode</span>)
         <span class="pl-c"># print('decode', decode)</span>
         <span class="pl-k">return</span> <span class="pl-s1">decode</span>
     
     <span class="pl-c"># update anomaly detection threshold</span>
     <span class="pl-k">def</span> <span class="pl-en">update_thres</span>(<span class="pl-s1">self</span>, <span class="pl-s1">thres</span>):
-        <span class="pl-s1">self</span>.<span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">thres</span>
+        <span class="pl-s1">self</span>.<span class="pl-c1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">thres</span>
 
 
 <span class="pl-k">def</span> <span class="pl-en">se2rmse</span>(<span class="pl-s1">a</span>):
-    <span class="pl-k">return</span> <span class="pl-s1">torch</span>.<span class="pl-en">sqrt</span>(<span class="pl-en">sum</span>(<span class="pl-s1">a</span>.<span class="pl-en">t</span>())<span class="pl-c1">/</span><span class="pl-s1">a</span>.<span class="pl-s1">shape</span>[<span class="pl-c1">1</span>])
+    <span class="pl-k">return</span> <span class="pl-s1">torch</span>.<span class="pl-c1">sqrt</span>(<span class="pl-en">sum</span>(<span class="pl-s1">a</span>.<span class="pl-c1">t</span>())<span class="pl-c1">/</span><span class="pl-s1">a</span>.<span class="pl-c1">shape</span>[<span class="pl-c1">1</span>])
 
 <span class="pl-k">def</span> <span class="pl-en">train</span>(<span class="pl-v">X_train</span>, <span class="pl-s1">feature_size</span>, <span class="pl-s1">epoches</span><span class="pl-c1">=</span><span class="pl-s1">epoches</span>, <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>, <span class="pl-s1">percentage</span><span class="pl-c1">=</span><span class="pl-s1">percentage</span>, <span class="pl-s1">weight_decay</span><span class="pl-c1">=</span><span class="pl-s1">weight_decay</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">True</span>, <span class="pl-s1">thres_criter</span><span class="pl-c1">=</span><span class="pl-s">'rmse'</span>):
     <span class="pl-s1">config</span> <span class="pl-c1">=</span> {
@@ -1075,13 +1075,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
         <span class="pl-en">print</span>(<span class="pl-s">"Hyper parameter config:"</span>, <span class="pl-s1">config</span>)
         
-    <span class="pl-s1">model</span> <span class="pl-c1">=</span> <span class="pl-en">autoencoder</span>(<span class="pl-s1">feature_size</span>, <span class="pl-s1">thres_criter</span>).<span class="pl-en">to</span>(<span class="pl-s1">device</span>)
-    <span class="pl-s1">optimizier</span> <span class="pl-c1">=</span> <span class="pl-s1">optim</span>.<span class="pl-v">Adam</span>(<span class="pl-s1">model</span>.<span class="pl-en">parameters</span>(), <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>, <span class="pl-s1">weight_decay</span><span class="pl-c1">=</span><span class="pl-s1">weight_decay</span>)
-    <span class="pl-s1">model</span>.<span class="pl-en">train</span>()
+    <span class="pl-s1">model</span> <span class="pl-c1">=</span> <span class="pl-en">autoencoder</span>(<span class="pl-s1">feature_size</span>, <span class="pl-s1">thres_criter</span>).<span class="pl-c1">to</span>(<span class="pl-s1">device</span>)
+    <span class="pl-s1">optimizier</span> <span class="pl-c1">=</span> <span class="pl-s1">optim</span>.<span class="pl-c1">Adam</span>(<span class="pl-s1">model</span>.<span class="pl-c1">parameters</span>(), <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>, <span class="pl-s1">weight_decay</span><span class="pl-c1">=</span><span class="pl-s1">weight_decay</span>)
+    <span class="pl-s1">model</span>.<span class="pl-c1">train</span>()
 
-    <span class="pl-v">X_train</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-en">from_numpy</span>(<span class="pl-v">X_train</span>).<span class="pl-en">type</span>(<span class="pl-s1">torch</span>.<span class="pl-s1">float</span>).<span class="pl-en">to</span>(<span class="pl-s1">device</span>)
-    <span class="pl-s1">torch_dataset</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-v">TensorDataset</span>(<span class="pl-v">X_train</span>, <span class="pl-v">X_train</span>)
-    <span class="pl-s1">loader</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-v">DataLoader</span>(
+    <span class="pl-v">X_train</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-c1">from_numpy</span>(<span class="pl-v">X_train</span>).<span class="pl-c1">type</span>(<span class="pl-s1">torch</span>.<span class="pl-c1">float</span>).<span class="pl-c1">to</span>(<span class="pl-s1">device</span>)
+    <span class="pl-s1">torch_dataset</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-c1">TensorDataset</span>(<span class="pl-v">X_train</span>, <span class="pl-v">X_train</span>)
+    <span class="pl-s1">loader</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-c1">DataLoader</span>(
         <span class="pl-s1">dataset</span><span class="pl-c1">=</span><span class="pl-s1">torch_dataset</span>,
         <span class="pl-s1">batch_size</span><span class="pl-c1">=</span><span class="pl-s1">batch_size</span>,
         <span class="pl-s1">shuffle</span><span class="pl-c1">=</span><span class="pl-c1">True</span>,
@@ -1091,37 +1091,37 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         <span class="pl-k">for</span> <span class="pl-s1">step</span>, (<span class="pl-s1">batch_x</span>, <span class="pl-s1">batch_y</span>) <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-s1">loader</span>):
             <span class="pl-s1">output</span> <span class="pl-c1">=</span> <span class="pl-en">model</span>(<span class="pl-s1">batch_x</span>)
             <span class="pl-s1">loss</span> <span class="pl-c1">=</span> <span class="pl-en">criterion</span>(<span class="pl-s1">output</span>, <span class="pl-s1">batch_y</span>)
-            <span class="pl-s1">optimizier</span>.<span class="pl-en">zero_grad</span>()
-            <span class="pl-s1">loss</span>.<span class="pl-en">backward</span>()
-            <span class="pl-s1">optimizier</span>.<span class="pl-en">step</span>()
+            <span class="pl-s1">optimizier</span>.<span class="pl-c1">zero_grad</span>()
+            <span class="pl-s1">loss</span>.<span class="pl-c1">backward</span>()
+            <span class="pl-s1">optimizier</span>.<span class="pl-c1">step</span>()
             <span class="pl-c"># if step % 10 == 0 :</span>
         <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
-            <span class="pl-en">print</span>(<span class="pl-s">'epoch:{}/{}'</span>.<span class="pl-en">format</span>(<span class="pl-s1">epoch</span>,<span class="pl-s1">epoches</span>), <span class="pl-s">'|Loss:'</span>, <span class="pl-s1">loss</span>.<span class="pl-en">item</span>())
+            <span class="pl-en">print</span>(<span class="pl-s">'epoch:{}/{}'</span>.<span class="pl-c1">format</span>(<span class="pl-s1">epoch</span>,<span class="pl-s1">epoches</span>), <span class="pl-s">'|Loss:'</span>, <span class="pl-s1">loss</span>.<span class="pl-c1">item</span>())
     
-    <span class="pl-s1">model</span>.<span class="pl-en">eval</span>()
+    <span class="pl-s1">model</span>.<span class="pl-c1">eval</span>()
     <span class="pl-s1">output</span> <span class="pl-c1">=</span> <span class="pl-en">model</span>(<span class="pl-v">X_train</span>)
     <span class="pl-k">if</span> <span class="pl-s1">thres_criter</span> <span class="pl-c1">==</span> <span class="pl-s">'rmse'</span>:
         <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">getMSEvec</span>(<span class="pl-s1">output</span>,<span class="pl-v">X_train</span>)
-        <span class="pl-s1">rmse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">se2rmse</span>(<span class="pl-s1">mse_vec</span>).<span class="pl-en">cpu</span>().<span class="pl-s1">data</span>.<span class="pl-en">numpy</span>()
+        <span class="pl-s1">rmse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">se2rmse</span>(<span class="pl-s1">mse_vec</span>).<span class="pl-c1">cpu</span>().<span class="pl-c1">data</span>.<span class="pl-c1">numpy</span>()
         <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
             <span class="pl-en">print</span>(<span class="pl-s">"max AD score"</span>,<span class="pl-en">max</span>(<span class="pl-s1">rmse_vec</span>))
         <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-en">max</span>(<span class="pl-s1">rmse_vec</span>)
-        <span class="pl-s1">rmse_vec</span>.<span class="pl-en">sort</span>()
+        <span class="pl-s1">rmse_vec</span>.<span class="pl-c1">sort</span>()
         <span class="pl-s1">pctg</span> <span class="pl-c1">=</span> <span class="pl-s1">percentage</span>
         <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">rmse_vec</span>[<span class="pl-en">int</span>(<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)<span class="pl-c1">*</span><span class="pl-s1">pctg</span>)]
     <span class="pl-k">elif</span> <span class="pl-s1">thres_criter</span> <span class="pl-c1">==</span> <span class="pl-s">'mse'</span>:
-        <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-en">mean</span>(<span class="pl-en">getMSEvec</span>(<span class="pl-v">X_train</span>, <span class="pl-s1">output</span>), <span class="pl-s1">dim</span><span class="pl-c1">=</span><span class="pl-c1">1</span>).<span class="pl-en">cpu</span>().<span class="pl-s1">data</span>.<span class="pl-en">numpy</span>()
+        <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-c1">mean</span>(<span class="pl-en">getMSEvec</span>(<span class="pl-v">X_train</span>, <span class="pl-s1">output</span>), <span class="pl-s1">dim</span><span class="pl-c1">=</span><span class="pl-c1">1</span>).<span class="pl-c1">cpu</span>().<span class="pl-c1">data</span>.<span class="pl-c1">numpy</span>()
         <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
             <span class="pl-en">print</span>(<span class="pl-s">"max AD score"</span>,<span class="pl-en">max</span>(<span class="pl-s1">mse_vec</span>))
         <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-en">max</span>(<span class="pl-s1">mse_vec</span>)
-        <span class="pl-s1">mse_vec</span>.<span class="pl-en">sort</span>()
+        <span class="pl-s1">mse_vec</span>.<span class="pl-c1">sort</span>()
         <span class="pl-s1">pctg</span> <span class="pl-c1">=</span> <span class="pl-s1">percentage</span>
         <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">mse_vec</span>[<span class="pl-en">int</span>(<span class="pl-en">len</span>(<span class="pl-s1">mse_vec</span>)<span class="pl-c1">*</span><span class="pl-s1">pctg</span>)]
     <span class="pl-k">else</span>:
         <span class="pl-en">print</span>(<span class="pl-s">'Unknown criterion for selecting threshold'</span>, <span class="pl-s1">thres_criter</span>)
         <span class="pl-en">exit</span>(<span class="pl-c1">-</span><span class="pl-c1">1</span>)
         
-    <span class="pl-s1">model</span>.<span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">thres</span>
+    <span class="pl-s1">model</span>.<span class="pl-c1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">thres</span>
     <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
         <span class="pl-en">print</span>(<span class="pl-s">f"Threshold is: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">thres</span><span class="pl-kos">}</span></span> (at percentage <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">percentage</span><span class="pl-kos">}</span></span>)"</span> )
 
@@ -1141,73 +1141,73 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
         <span class="pl-en">print</span>(<span class="pl-s">"Hyper parameter config:"</span>, <span class="pl-s1">config</span>)
         
-    <span class="pl-s1">model</span> <span class="pl-c1">=</span> <span class="pl-en">autoencoder</span>(<span class="pl-s1">feature_size</span>, <span class="pl-s1">thres_criter</span>).<span class="pl-en">to</span>(<span class="pl-s1">device</span>)
+    <span class="pl-s1">model</span> <span class="pl-c1">=</span> <span class="pl-en">autoencoder</span>(<span class="pl-s1">feature_size</span>, <span class="pl-s1">thres_criter</span>).<span class="pl-c1">to</span>(<span class="pl-s1">device</span>)
     <span class="pl-k">if</span> <span class="pl-s1">opt</span> <span class="pl-c1">==</span> <span class="pl-s">'Adam'</span>:
-        <span class="pl-s1">optimizier</span> <span class="pl-c1">=</span> <span class="pl-s1">optim</span>.<span class="pl-v">Adam</span>(<span class="pl-s1">model</span>.<span class="pl-en">parameters</span>(), <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>, <span class="pl-s1">weight_decay</span><span class="pl-c1">=</span><span class="pl-s1">weight_decay</span>)
+        <span class="pl-s1">optimizier</span> <span class="pl-c1">=</span> <span class="pl-s1">optim</span>.<span class="pl-c1">Adam</span>(<span class="pl-s1">model</span>.<span class="pl-c1">parameters</span>(), <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>, <span class="pl-s1">weight_decay</span><span class="pl-c1">=</span><span class="pl-s1">weight_decay</span>)
     <span class="pl-k">elif</span> <span class="pl-s1">opt</span> <span class="pl-c1">==</span> <span class="pl-s">'SGD'</span>:
-        <span class="pl-s1">optimizier</span> <span class="pl-c1">=</span> <span class="pl-s1">optim</span>.<span class="pl-v">SGD</span>(<span class="pl-s1">model</span>.<span class="pl-en">parameters</span>(), <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>)
+        <span class="pl-s1">optimizier</span> <span class="pl-c1">=</span> <span class="pl-s1">optim</span>.<span class="pl-c1">SGD</span>(<span class="pl-s1">model</span>.<span class="pl-c1">parameters</span>(), <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>)
     <span class="pl-k">else</span>: 
-        <span class="pl-k">raise</span> <span class="pl-v">RuntimeError</span>(<span class="pl-s">f'Unknown optimizier: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">opt</span><span class="pl-kos">}</span></span>'</span>)
+        <span class="pl-k">raise</span> <span class="pl-en">RuntimeError</span>(<span class="pl-s">f'Unknown optimizier: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">opt</span><span class="pl-kos">}</span></span>'</span>)
 
-    <span class="pl-v">X_train</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-en">from_numpy</span>(<span class="pl-v">X_train</span>).<span class="pl-en">type</span>(<span class="pl-s1">torch</span>.<span class="pl-s1">float</span>).<span class="pl-en">to</span>(<span class="pl-s1">device</span>)  
-    <span class="pl-s1">torch_dataset</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-v">TensorDataset</span>(<span class="pl-v">X_train</span>, <span class="pl-v">X_train</span>)
-    <span class="pl-s1">loader</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-v">DataLoader</span>(
+    <span class="pl-v">X_train</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-c1">from_numpy</span>(<span class="pl-v">X_train</span>).<span class="pl-c1">type</span>(<span class="pl-s1">torch</span>.<span class="pl-c1">float</span>).<span class="pl-c1">to</span>(<span class="pl-s1">device</span>)  
+    <span class="pl-s1">torch_dataset</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-c1">TensorDataset</span>(<span class="pl-v">X_train</span>, <span class="pl-v">X_train</span>)
+    <span class="pl-s1">loader</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-c1">DataLoader</span>(
         <span class="pl-s1">dataset</span><span class="pl-c1">=</span><span class="pl-s1">torch_dataset</span>,
         <span class="pl-s1">batch_size</span><span class="pl-c1">=</span><span class="pl-s1">batch_size</span>,
         <span class="pl-s1">shuffle</span><span class="pl-c1">=</span><span class="pl-c1">True</span>,
     )
     
-    <span class="pl-s1">best_model</span>, <span class="pl-s1">best_auc</span>, <span class="pl-s1">best_thres</span> <span class="pl-c1">=</span>  <span class="pl-c1">None</span>, <span class="pl-c1">-</span><span class="pl-s1">np</span>.<span class="pl-v">Inf</span>, <span class="pl-c1">None</span>
+    <span class="pl-s1">best_model</span>, <span class="pl-s1">best_auc</span>, <span class="pl-s1">best_thres</span> <span class="pl-c1">=</span>  <span class="pl-c1">None</span>, <span class="pl-c1">-</span><span class="pl-s1">np</span>.<span class="pl-c1">Inf</span>, <span class="pl-c1">None</span>
 
     <span class="pl-k">for</span> <span class="pl-s1">epoch</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-s1">epoches</span>):
-        <span class="pl-s1">model</span>.<span class="pl-en">train</span>()
+        <span class="pl-s1">model</span>.<span class="pl-c1">train</span>()
         <span class="pl-k">for</span> <span class="pl-s1">step</span>, (<span class="pl-s1">batch_x</span>, <span class="pl-s1">batch_y</span>) <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-s1">loader</span>):
             <span class="pl-s1">output</span> <span class="pl-c1">=</span> <span class="pl-en">model</span>(<span class="pl-s1">batch_x</span>)
             <span class="pl-s1">loss</span> <span class="pl-c1">=</span> <span class="pl-en">criterion</span>(<span class="pl-s1">output</span>, <span class="pl-s1">batch_y</span>)
-            <span class="pl-s1">optimizier</span>.<span class="pl-en">zero_grad</span>()
-            <span class="pl-s1">loss</span>.<span class="pl-en">backward</span>()
-            <span class="pl-s1">optimizier</span>.<span class="pl-en">step</span>()
+            <span class="pl-s1">optimizier</span>.<span class="pl-c1">zero_grad</span>()
+            <span class="pl-s1">loss</span>.<span class="pl-c1">backward</span>()
+            <span class="pl-s1">optimizier</span>.<span class="pl-c1">step</span>()
         <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
-            <span class="pl-en">print</span>(<span class="pl-s">'epoch:{}/{}'</span>.<span class="pl-en">format</span>(<span class="pl-s1">epoch</span>,<span class="pl-s1">epoches</span>), <span class="pl-s">'|Loss:'</span>, <span class="pl-s1">loss</span>.<span class="pl-en">item</span>())
+            <span class="pl-en">print</span>(<span class="pl-s">'epoch:{}/{}'</span>.<span class="pl-c1">format</span>(<span class="pl-s1">epoch</span>,<span class="pl-s1">epoches</span>), <span class="pl-s">'|Loss:'</span>, <span class="pl-s1">loss</span>.<span class="pl-c1">item</span>())
 
-        <span class="pl-s1">model</span>.<span class="pl-en">eval</span>()
+        <span class="pl-s1">model</span>.<span class="pl-c1">eval</span>()
         <span class="pl-c"># get raw threshold for model </span>
         <span class="pl-s1">output</span> <span class="pl-c1">=</span> <span class="pl-en">model</span>(<span class="pl-v">X_train</span>)
         <span class="pl-k">if</span> <span class="pl-s1">thres_criter</span> <span class="pl-c1">==</span> <span class="pl-s">'rmse'</span>:
             <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">getMSEvec</span>(<span class="pl-s1">output</span>,<span class="pl-v">X_train</span>)
-            <span class="pl-s1">rmse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">se2rmse</span>(<span class="pl-s1">mse_vec</span>).<span class="pl-en">cpu</span>().<span class="pl-s1">data</span>.<span class="pl-en">numpy</span>()
+            <span class="pl-s1">rmse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">se2rmse</span>(<span class="pl-s1">mse_vec</span>).<span class="pl-c1">cpu</span>().<span class="pl-c1">data</span>.<span class="pl-c1">numpy</span>()
             <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-en">max</span>(<span class="pl-s1">rmse_vec</span>)
-            <span class="pl-s1">rmse_vec</span>.<span class="pl-en">sort</span>()
+            <span class="pl-s1">rmse_vec</span>.<span class="pl-c1">sort</span>()
             <span class="pl-s1">pctg</span> <span class="pl-c1">=</span> <span class="pl-s1">percentage</span>
             <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">rmse_vec</span>[<span class="pl-en">int</span>(<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)<span class="pl-c1">*</span><span class="pl-s1">pctg</span>)]
         <span class="pl-k">elif</span> <span class="pl-s1">thres_criter</span> <span class="pl-c1">==</span> <span class="pl-s">'mse'</span>:
-            <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-en">mean</span>(<span class="pl-en">getMSEvec</span>(<span class="pl-v">X_train</span>, <span class="pl-s1">output</span>), <span class="pl-s1">dim</span><span class="pl-c1">=</span><span class="pl-c1">1</span>).<span class="pl-en">cpu</span>().<span class="pl-s1">data</span>.<span class="pl-en">numpy</span>()
+            <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-c1">mean</span>(<span class="pl-en">getMSEvec</span>(<span class="pl-v">X_train</span>, <span class="pl-s1">output</span>), <span class="pl-s1">dim</span><span class="pl-c1">=</span><span class="pl-c1">1</span>).<span class="pl-c1">cpu</span>().<span class="pl-c1">data</span>.<span class="pl-c1">numpy</span>()
             <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-en">max</span>(<span class="pl-s1">mse_vec</span>)
-            <span class="pl-s1">mse_vec</span>.<span class="pl-en">sort</span>()
+            <span class="pl-s1">mse_vec</span>.<span class="pl-c1">sort</span>()
             <span class="pl-s1">pctg</span> <span class="pl-c1">=</span> <span class="pl-s1">percentage</span>
             <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">mse_vec</span>[<span class="pl-en">int</span>(<span class="pl-en">len</span>(<span class="pl-s1">mse_vec</span>)<span class="pl-c1">*</span><span class="pl-s1">pctg</span>)]
         <span class="pl-k">else</span>:
             <span class="pl-en">print</span>(<span class="pl-s">'Unknown criterion for selecting threshold'</span>, <span class="pl-s1">thres_criter</span>)
             <span class="pl-en">exit</span>(<span class="pl-c1">-</span><span class="pl-c1">1</span>)
-        <span class="pl-s1">model</span>.<span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">thres</span>
+        <span class="pl-s1">model</span>.<span class="pl-c1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">thres</span>
 
         <span class="pl-s1">_</span>, <span class="pl-s1">y_valid_rmse</span> <span class="pl-c1">=</span> <span class="pl-en">test</span>(<span class="pl-s1">model</span>, <span class="pl-v">X_valid</span>)
-        <span class="pl-s1">roc_auc</span>, <span class="pl-s1">o_thres</span> <span class="pl-c1">=</span> <span class="pl-en">eval_roc</span>(<span class="pl-s1">y_valid_rmse</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">thres_max</span><span class="pl-c1">=</span><span class="pl-s1">model</span>.<span class="pl-s1">thres</span><span class="pl-c1">*</span><span class="pl-c1">1.5</span>, <span class="pl-s1">plot</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
+        <span class="pl-s1">roc_auc</span>, <span class="pl-s1">o_thres</span> <span class="pl-c1">=</span> <span class="pl-en">eval_roc</span>(<span class="pl-s1">y_valid_rmse</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">thres_max</span><span class="pl-c1">=</span><span class="pl-s1">model</span>.<span class="pl-c1">thres</span><span class="pl-c1">*</span><span class="pl-c1">1.5</span>, <span class="pl-s1">plot</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
         <span class="pl-k">if</span> <span class="pl-s1">roc_auc</span> <span class="pl-c1">&gt;</span> <span class="pl-s1">best_auc</span>:
             <span class="pl-s1">best_auc</span> <span class="pl-c1">=</span> <span class="pl-s1">roc_auc</span>
             <span class="pl-s1">best_thres</span> <span class="pl-c1">=</span> <span class="pl-s1">o_thres</span>
-            <span class="pl-s1">best_model</span> <span class="pl-c1">=</span> <span class="pl-s1">copy</span>.<span class="pl-en">deepcopy</span>(<span class="pl-s1">model</span>)
-            <span class="pl-s1">model</span>.<span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">best_thres</span>
+            <span class="pl-s1">best_model</span> <span class="pl-c1">=</span> <span class="pl-s1">copy</span>.<span class="pl-c1">deepcopy</span>(<span class="pl-s1">model</span>)
+            <span class="pl-s1">model</span>.<span class="pl-c1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">best_thres</span>
             <span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">_</span> <span class="pl-c1">=</span> <span class="pl-en">test</span>(<span class="pl-s1">model</span>, <span class="pl-v">X_valid</span>)
-            <span class="pl-s1">tpr</span>, <span class="pl-s1">fpr</span> <span class="pl-c1">=</span> <span class="pl-v">TPR_FPR</span>(<span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">model</span>.<span class="pl-s1">thres</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
+            <span class="pl-s1">tpr</span>, <span class="pl-s1">fpr</span> <span class="pl-c1">=</span> <span class="pl-en">TPR_FPR</span>(<span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">model</span>.<span class="pl-c1">thres</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
             <span class="pl-k">if</span> <span class="pl-s1">verbose</span>: <span class="pl-en">print</span>(<span class="pl-s">f'- update model! valid: roc auc is <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">best_auc</span>:.5f<span class="pl-kos">}</span></span>, tpr: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">tpr</span>:.5f<span class="pl-kos">}</span></span>, fpr:<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">fpr</span>:.5f<span class="pl-kos">}</span></span>'</span>)
         <span class="pl-k">elif</span> <span class="pl-s1">debug</span>:
             <span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">_</span> <span class="pl-c1">=</span> <span class="pl-en">test</span>(<span class="pl-s1">model</span>, <span class="pl-v">X_valid</span>)
-            <span class="pl-s1">tpr</span>, <span class="pl-s1">fpr</span> <span class="pl-c1">=</span> <span class="pl-v">TPR_FPR</span>(<span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">o_thres</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
+            <span class="pl-s1">tpr</span>, <span class="pl-s1">fpr</span> <span class="pl-c1">=</span> <span class="pl-en">TPR_FPR</span>(<span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">o_thres</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
             <span class="pl-en">print</span>(<span class="pl-s">f'(- NOT update, valid: roc auc is <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">roc_auc</span>:.5f<span class="pl-kos">}</span></span>, tpr: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">tpr</span>:.5f<span class="pl-kos">}</span></span>, fpr:<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">fpr</span>:.5f<span class="pl-kos">}</span></span>)'</span>)
 
     <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
-        <span class="pl-en">print</span>(<span class="pl-s">f"Threshold is: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">model</span>.<span class="pl-s1">thres</span><span class="pl-kos">}</span></span> (at percentage <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">percentage</span><span class="pl-kos">}</span></span>)"</span> )
+        <span class="pl-en">print</span>(<span class="pl-s">f"Threshold is: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">model</span>.<span class="pl-c1">thres</span><span class="pl-kos">}</span></span> (at percentage <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">percentage</span><span class="pl-kos">}</span></span>)"</span> )
 
     <span class="pl-k">return</span> <span class="pl-s1">best_model</span>
 
@@ -1223,7 +1223,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         <span class="pl-v">X_train_pos</span> <span class="pl-c1">=</span> <span class="pl-v">X_train_pos</span>[:<span class="pl-en">len</span>(<span class="pl-v">X_train_ben</span>)]
     <span class="pl-k">else</span>:
         <span class="pl-s1">repeats</span> <span class="pl-c1">=</span> <span class="pl-c1">-</span>(<span class="pl-c1">-</span><span class="pl-en">len</span>(<span class="pl-v">X_train_ben</span>)<span class="pl-c1">//</span><span class="pl-en">len</span>(<span class="pl-v">X_train_pos</span>))
-        <span class="pl-v">X_train_pos</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">tile</span>(<span class="pl-v">X_train_pos</span>, (<span class="pl-s1">repeats</span>, <span class="pl-c1">1</span>))
+        <span class="pl-v">X_train_pos</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">tile</span>(<span class="pl-v">X_train_pos</span>, (<span class="pl-s1">repeats</span>, <span class="pl-c1">1</span>))
         <span class="pl-v">X_train_pos</span> <span class="pl-c1">=</span> <span class="pl-v">X_train_pos</span>[:<span class="pl-en">len</span>(<span class="pl-v">X_train_ben</span>)]
 
     <span class="pl-s1">config</span> <span class="pl-c1">=</span> {
@@ -1236,151 +1236,151 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
         <span class="pl-en">print</span>(<span class="pl-s">"Hyper parameter config:"</span>, <span class="pl-s1">config</span>)
         
-    <span class="pl-s1">model</span> <span class="pl-c1">=</span> <span class="pl-en">autoencoder</span>(<span class="pl-s1">feature_size</span>, <span class="pl-s1">thres_criter</span>).<span class="pl-en">to</span>(<span class="pl-s1">device</span>)
+    <span class="pl-s1">model</span> <span class="pl-c1">=</span> <span class="pl-en">autoencoder</span>(<span class="pl-s1">feature_size</span>, <span class="pl-s1">thres_criter</span>).<span class="pl-c1">to</span>(<span class="pl-s1">device</span>)
     <span class="pl-k">if</span> <span class="pl-s1">opt</span> <span class="pl-c1">==</span> <span class="pl-s">'Adam'</span>:
-        <span class="pl-s1">optimizier</span> <span class="pl-c1">=</span> <span class="pl-s1">optim</span>.<span class="pl-v">Adam</span>(<span class="pl-s1">model</span>.<span class="pl-en">parameters</span>(), <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>, <span class="pl-s1">weight_decay</span><span class="pl-c1">=</span><span class="pl-s1">weight_decay</span>)
+        <span class="pl-s1">optimizier</span> <span class="pl-c1">=</span> <span class="pl-s1">optim</span>.<span class="pl-c1">Adam</span>(<span class="pl-s1">model</span>.<span class="pl-c1">parameters</span>(), <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>, <span class="pl-s1">weight_decay</span><span class="pl-c1">=</span><span class="pl-s1">weight_decay</span>)
     <span class="pl-k">elif</span> <span class="pl-s1">opt</span> <span class="pl-c1">==</span> <span class="pl-s">'SGD'</span>:
-        <span class="pl-s1">optimizier</span> <span class="pl-c1">=</span> <span class="pl-s1">optim</span>.<span class="pl-v">SGD</span>(<span class="pl-s1">model</span>.<span class="pl-en">parameters</span>(), <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>)
+        <span class="pl-s1">optimizier</span> <span class="pl-c1">=</span> <span class="pl-s1">optim</span>.<span class="pl-c1">SGD</span>(<span class="pl-s1">model</span>.<span class="pl-c1">parameters</span>(), <span class="pl-s1">lr</span><span class="pl-c1">=</span><span class="pl-s1">lr</span>)
     <span class="pl-k">else</span>: 
-        <span class="pl-k">raise</span> <span class="pl-v">RuntimeError</span>(<span class="pl-s">f'Unknown optimizier: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">opt</span><span class="pl-kos">}</span></span>'</span>)
+        <span class="pl-k">raise</span> <span class="pl-en">RuntimeError</span>(<span class="pl-s">f'Unknown optimizier: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">opt</span><span class="pl-kos">}</span></span>'</span>)
 
-    <span class="pl-v">X_train_ben</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-en">from_numpy</span>(<span class="pl-v">X_train_ben</span>).<span class="pl-en">type</span>(<span class="pl-s1">torch</span>.<span class="pl-s1">float</span>).<span class="pl-en">to</span>(<span class="pl-s1">device</span>)
-    <span class="pl-v">X_train_pos</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-en">from_numpy</span>(<span class="pl-v">X_train_pos</span>).<span class="pl-en">type</span>(<span class="pl-s1">torch</span>.<span class="pl-s1">float</span>).<span class="pl-en">to</span>(<span class="pl-s1">device</span>)
+    <span class="pl-v">X_train_ben</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-c1">from_numpy</span>(<span class="pl-v">X_train_ben</span>).<span class="pl-c1">type</span>(<span class="pl-s1">torch</span>.<span class="pl-c1">float</span>).<span class="pl-c1">to</span>(<span class="pl-s1">device</span>)
+    <span class="pl-v">X_train_pos</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-c1">from_numpy</span>(<span class="pl-v">X_train_pos</span>).<span class="pl-c1">type</span>(<span class="pl-s1">torch</span>.<span class="pl-c1">float</span>).<span class="pl-c1">to</span>(<span class="pl-s1">device</span>)
 
-    <span class="pl-s1">torch_dataset</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-v">TensorDataset</span>(<span class="pl-v">X_train_ben</span>, <span class="pl-v">X_train_pos</span>)
-    <span class="pl-s1">loader</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-v">DataLoader</span>(
+    <span class="pl-s1">torch_dataset</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-c1">TensorDataset</span>(<span class="pl-v">X_train_ben</span>, <span class="pl-v">X_train_pos</span>)
+    <span class="pl-s1">loader</span> <span class="pl-c1">=</span> <span class="pl-v">Data</span>.<span class="pl-c1">DataLoader</span>(
         <span class="pl-s1">dataset</span><span class="pl-c1">=</span><span class="pl-s1">torch_dataset</span>,
         <span class="pl-s1">batch_size</span><span class="pl-c1">=</span><span class="pl-s1">batch_size</span>,
         <span class="pl-s1">shuffle</span><span class="pl-c1">=</span><span class="pl-c1">True</span>,
     )
     
-    <span class="pl-s1">best_model</span>, <span class="pl-s1">best_auc</span>, <span class="pl-s1">best_thres</span> <span class="pl-c1">=</span>  <span class="pl-c1">None</span>, <span class="pl-c1">-</span><span class="pl-s1">np</span>.<span class="pl-v">Inf</span>, <span class="pl-c1">None</span>
-    <span class="pl-v">Bound</span> <span class="pl-c1">=</span> <span class="pl-s1">nn</span>.<span class="pl-v">ReLU</span>()
-    <span class="pl-v">MAX_THRES</span> <span class="pl-c1">=</span> <span class="pl-c1">4.</span>
+    <span class="pl-s1">best_model</span>, <span class="pl-s1">best_auc</span>, <span class="pl-s1">best_thres</span> <span class="pl-c1">=</span>  <span class="pl-c1">None</span>, <span class="pl-c1">-</span><span class="pl-s1">np</span>.<span class="pl-c1">Inf</span>, <span class="pl-c1">None</span>
+    <span class="pl-v">Bound</span> <span class="pl-c1">=</span> <span class="pl-s1">nn</span>.<span class="pl-c1">ReLU</span>()
+    <span class="pl-c1">MAX_THRES</span> <span class="pl-c1">=</span> <span class="pl-c1">4.</span>
     
     <span class="pl-k">for</span> <span class="pl-s1">epoch</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-s1">epoches</span>):
-        <span class="pl-s1">model</span>.<span class="pl-en">train</span>()
+        <span class="pl-s1">model</span>.<span class="pl-c1">train</span>()
         <span class="pl-k">for</span> <span class="pl-s1">step</span>, (<span class="pl-s1">batch_x_neg</span>, <span class="pl-s1">batch_x_pos</span>) <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-s1">loader</span>):
             <span class="pl-s1">output_neg</span> <span class="pl-c1">=</span> <span class="pl-en">model</span>(<span class="pl-s1">batch_x_neg</span>)
             <span class="pl-s1">loss_neg</span> <span class="pl-c1">=</span> <span class="pl-en">criterion</span>(<span class="pl-s1">output_neg</span>, <span class="pl-s1">batch_x_neg</span>)
             <span class="pl-s1">output_pos</span> <span class="pl-c1">=</span> <span class="pl-en">model</span>(<span class="pl-s1">batch_x_pos</span>)
-            <span class="pl-s1">loss_pos</span> <span class="pl-c1">=</span> <span class="pl-v">Bound</span>(<span class="pl-v">MAX_THRES</span><span class="pl-c1">-</span><span class="pl-en">criterion</span>(<span class="pl-s1">output_pos</span>, <span class="pl-s1">batch_x_pos</span>))
+            <span class="pl-s1">loss_pos</span> <span class="pl-c1">=</span> <span class="pl-en">Bound</span>(<span class="pl-c1">MAX_THRES</span><span class="pl-c1">-</span><span class="pl-en">criterion</span>(<span class="pl-s1">output_pos</span>, <span class="pl-s1">batch_x_pos</span>))
             <span class="pl-s1">loss</span> <span class="pl-c1">=</span> <span class="pl-s1">loss_neg</span> <span class="pl-c1">+</span> <span class="pl-s1">pos_weight</span> <span class="pl-c1">*</span> <span class="pl-s1">loss_pos</span>
-            <span class="pl-s1">optimizier</span>.<span class="pl-en">zero_grad</span>()
-            <span class="pl-s1">loss</span>.<span class="pl-en">backward</span>()
-            <span class="pl-s1">optimizier</span>.<span class="pl-en">step</span>()
+            <span class="pl-s1">optimizier</span>.<span class="pl-c1">zero_grad</span>()
+            <span class="pl-s1">loss</span>.<span class="pl-c1">backward</span>()
+            <span class="pl-s1">optimizier</span>.<span class="pl-c1">step</span>()
 
         <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
-            <span class="pl-en">print</span>(<span class="pl-s">'epoch:{}/{}'</span>.<span class="pl-en">format</span>(<span class="pl-s1">epoch</span>,<span class="pl-s1">epoches</span>), <span class="pl-s">'|Loss:'</span>, <span class="pl-s1">loss</span>.<span class="pl-en">item</span>(), <span class="pl-s">f'(neg: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">loss_neg</span>.<span class="pl-en">item</span>()<span class="pl-kos">}</span></span>, pos:<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">loss_pos</span>.<span class="pl-en">item</span>()<span class="pl-kos">}</span></span>)'</span>)
+            <span class="pl-en">print</span>(<span class="pl-s">'epoch:{}/{}'</span>.<span class="pl-c1">format</span>(<span class="pl-s1">epoch</span>,<span class="pl-s1">epoches</span>), <span class="pl-s">'|Loss:'</span>, <span class="pl-s1">loss</span>.<span class="pl-c1">item</span>(), <span class="pl-s">f'(neg: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">loss_neg</span>.<span class="pl-c1">item</span>()<span class="pl-kos">}</span></span>, pos:<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">loss_pos</span>.<span class="pl-c1">item</span>()<span class="pl-kos">}</span></span>)'</span>)
 
-        <span class="pl-k">if</span> (<span class="pl-v">X_valid</span> <span class="pl-c1">is</span> <span class="pl-c1">not</span> <span class="pl-c1">None</span> <span class="pl-c1">and</span> <span class="pl-s1">y_valid</span> <span class="pl-c1">is</span> <span class="pl-c1">not</span> <span class="pl-c1">None</span>) <span class="pl-c1">or</span> (<span class="pl-s1">epoch</span> <span class="pl-c1">==</span> <span class="pl-s1">epoches</span><span class="pl-c1">-</span><span class="pl-c1">1</span>):
-            <span class="pl-s1">model</span>.<span class="pl-en">eval</span>()
+        <span class="pl-k">if</span> (<span class="pl-v">X_valid</span> <span class="pl-c1"><span class="pl-c1">is</span> <span class="pl-c1">not</span></span> <span class="pl-c1">None</span> <span class="pl-c1">and</span> <span class="pl-s1">y_valid</span> <span class="pl-c1"><span class="pl-c1">is</span> <span class="pl-c1">not</span></span> <span class="pl-c1">None</span>) <span class="pl-c1">or</span> (<span class="pl-s1">epoch</span> <span class="pl-c1">==</span> <span class="pl-s1">epoches</span><span class="pl-c1">-</span><span class="pl-c1">1</span>):
+            <span class="pl-s1">model</span>.<span class="pl-c1">eval</span>()
             <span class="pl-c"># get raw threshold for model </span>
             <span class="pl-s1">output</span> <span class="pl-c1">=</span> <span class="pl-en">model</span>(<span class="pl-v">X_train_ben</span>)
             <span class="pl-k">if</span> <span class="pl-s1">thres_criter</span> <span class="pl-c1">==</span> <span class="pl-s">'rmse'</span>:
                 <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">getMSEvec</span>(<span class="pl-s1">output</span>,<span class="pl-v">X_train_ben</span>)
-                <span class="pl-s1">rmse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">se2rmse</span>(<span class="pl-s1">mse_vec</span>).<span class="pl-en">cpu</span>().<span class="pl-s1">data</span>.<span class="pl-en">numpy</span>()
+                <span class="pl-s1">rmse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">se2rmse</span>(<span class="pl-s1">mse_vec</span>).<span class="pl-c1">cpu</span>().<span class="pl-c1">data</span>.<span class="pl-c1">numpy</span>()
                 <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-en">max</span>(<span class="pl-s1">rmse_vec</span>)
-                <span class="pl-s1">rmse_vec</span>.<span class="pl-en">sort</span>()
+                <span class="pl-s1">rmse_vec</span>.<span class="pl-c1">sort</span>()
                 <span class="pl-s1">pctg</span> <span class="pl-c1">=</span> <span class="pl-s1">percentage</span>
                 <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">rmse_vec</span>[<span class="pl-en">int</span>(<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)<span class="pl-c1">*</span><span class="pl-s1">pctg</span>)]
             <span class="pl-k">elif</span> <span class="pl-s1">thres_criter</span> <span class="pl-c1">==</span> <span class="pl-s">'mse'</span>:
-                <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-en">mean</span>(<span class="pl-en">getMSEvec</span>(<span class="pl-v">X_train_ben</span>, <span class="pl-s1">output</span>), <span class="pl-s1">dim</span><span class="pl-c1">=</span><span class="pl-c1">1</span>).<span class="pl-en">cpu</span>().<span class="pl-s1">data</span>.<span class="pl-en">numpy</span>()
+                <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-c1">mean</span>(<span class="pl-en">getMSEvec</span>(<span class="pl-v">X_train_ben</span>, <span class="pl-s1">output</span>), <span class="pl-s1">dim</span><span class="pl-c1">=</span><span class="pl-c1">1</span>).<span class="pl-c1">cpu</span>().<span class="pl-c1">data</span>.<span class="pl-c1">numpy</span>()
                 <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-en">max</span>(<span class="pl-s1">mse_vec</span>)
-                <span class="pl-s1">mse_vec</span>.<span class="pl-en">sort</span>()
+                <span class="pl-s1">mse_vec</span>.<span class="pl-c1">sort</span>()
                 <span class="pl-s1">pctg</span> <span class="pl-c1">=</span> <span class="pl-s1">percentage</span>
                 <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">mse_vec</span>[<span class="pl-en">int</span>(<span class="pl-en">len</span>(<span class="pl-s1">mse_vec</span>)<span class="pl-c1">*</span><span class="pl-s1">pctg</span>)]
             <span class="pl-k">else</span>:
                 <span class="pl-en">print</span>(<span class="pl-s">'Unknown criterion for selecting threshold'</span>, <span class="pl-s1">thres_criter</span>)
                 <span class="pl-en">exit</span>(<span class="pl-c1">-</span><span class="pl-c1">1</span>)
-            <span class="pl-s1">model</span>.<span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">thres</span>
+            <span class="pl-s1">model</span>.<span class="pl-c1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">thres</span>
 
-        <span class="pl-k">if</span> <span class="pl-v">X_valid</span> <span class="pl-c1">is</span> <span class="pl-c1">not</span> <span class="pl-c1">None</span> <span class="pl-c1">and</span> <span class="pl-s1">y_valid</span> <span class="pl-c1">is</span> <span class="pl-c1">not</span> <span class="pl-c1">None</span>:
+        <span class="pl-k">if</span> <span class="pl-v">X_valid</span> <span class="pl-c1"><span class="pl-c1">is</span> <span class="pl-c1">not</span></span> <span class="pl-c1">None</span> <span class="pl-c1">and</span> <span class="pl-s1">y_valid</span> <span class="pl-c1"><span class="pl-c1">is</span> <span class="pl-c1">not</span></span> <span class="pl-c1">None</span>:
             <span class="pl-s1">_</span>, <span class="pl-s1">y_valid_rmse</span> <span class="pl-c1">=</span> <span class="pl-en">test</span>(<span class="pl-s1">model</span>, <span class="pl-v">X_valid</span>)
-            <span class="pl-s1">roc_auc</span>, <span class="pl-s1">o_thres</span> <span class="pl-c1">=</span> <span class="pl-en">eval_roc</span>(<span class="pl-s1">y_valid_rmse</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">thres_max</span><span class="pl-c1">=</span><span class="pl-s1">model</span>.<span class="pl-s1">thres</span><span class="pl-c1">*</span><span class="pl-c1">1.5</span>, <span class="pl-s1">plot</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
+            <span class="pl-s1">roc_auc</span>, <span class="pl-s1">o_thres</span> <span class="pl-c1">=</span> <span class="pl-en">eval_roc</span>(<span class="pl-s1">y_valid_rmse</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">thres_max</span><span class="pl-c1">=</span><span class="pl-s1">model</span>.<span class="pl-c1">thres</span><span class="pl-c1">*</span><span class="pl-c1">1.5</span>, <span class="pl-s1">plot</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
             <span class="pl-k">if</span> <span class="pl-s1">roc_auc</span> <span class="pl-c1">&gt;</span> <span class="pl-s1">best_auc</span>:
                 <span class="pl-s1">best_auc</span> <span class="pl-c1">=</span> <span class="pl-s1">roc_auc</span>
                 <span class="pl-s1">best_thres</span> <span class="pl-c1">=</span> <span class="pl-s1">o_thres</span>
-                <span class="pl-s1">best_model</span> <span class="pl-c1">=</span> <span class="pl-s1">copy</span>.<span class="pl-en">deepcopy</span>(<span class="pl-s1">model</span>)
-                <span class="pl-s1">model</span>.<span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">best_thres</span>
+                <span class="pl-s1">best_model</span> <span class="pl-c1">=</span> <span class="pl-s1">copy</span>.<span class="pl-c1">deepcopy</span>(<span class="pl-s1">model</span>)
+                <span class="pl-s1">model</span>.<span class="pl-c1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">best_thres</span>
                 <span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">_</span> <span class="pl-c1">=</span> <span class="pl-en">test</span>(<span class="pl-s1">model</span>, <span class="pl-v">X_valid</span>)
-                <span class="pl-s1">tpr</span>, <span class="pl-s1">fpr</span> <span class="pl-c1">=</span> <span class="pl-v">TPR_FPR</span>(<span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">model</span>.<span class="pl-s1">thres</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
+                <span class="pl-s1">tpr</span>, <span class="pl-s1">fpr</span> <span class="pl-c1">=</span> <span class="pl-en">TPR_FPR</span>(<span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">model</span>.<span class="pl-c1">thres</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
                 <span class="pl-k">if</span> <span class="pl-s1">verbose</span>: <span class="pl-en">print</span>(<span class="pl-s">f'- update model! valid: roc auc is <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">best_auc</span>:.5f<span class="pl-kos">}</span></span>, tpr: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">tpr</span>:.5f<span class="pl-kos">}</span></span>, fpr:<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">fpr</span>:.5f<span class="pl-kos">}</span></span>'</span>)
             <span class="pl-k">elif</span> <span class="pl-s1">debug</span>:
                 <span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">_</span> <span class="pl-c1">=</span> <span class="pl-en">test</span>(<span class="pl-s1">model</span>, <span class="pl-v">X_valid</span>)
-                <span class="pl-s1">tpr</span>, <span class="pl-s1">fpr</span> <span class="pl-c1">=</span> <span class="pl-v">TPR_FPR</span>(<span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">o_thres</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
+                <span class="pl-s1">tpr</span>, <span class="pl-s1">fpr</span> <span class="pl-c1">=</span> <span class="pl-en">TPR_FPR</span>(<span class="pl-s1">y_valid_pred</span>, <span class="pl-s1">y_valid</span>, <span class="pl-s1">o_thres</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">False</span>)
                 <span class="pl-en">print</span>(<span class="pl-s">f'(- NOT update, valid: roc auc is <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">roc_auc</span>:.5f<span class="pl-kos">}</span></span>, tpr: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">tpr</span>:.5f<span class="pl-kos">}</span></span>, fpr:<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">fpr</span>:.5f<span class="pl-kos">}</span></span>)'</span>)
         <span class="pl-k">else</span>:
             <span class="pl-s1">best_model</span> <span class="pl-c1">=</span> <span class="pl-s1">model</span>
 
     <span class="pl-k">if</span> <span class="pl-s1">verbose</span>:
-        <span class="pl-en">print</span>(<span class="pl-s">f"Threshold is: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">model</span>.<span class="pl-s1">thres</span><span class="pl-kos">}</span></span> (at percentage <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">percentage</span><span class="pl-kos">}</span></span>)"</span> )
+        <span class="pl-en">print</span>(<span class="pl-s">f"Threshold is: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">model</span>.<span class="pl-c1">thres</span><span class="pl-kos">}</span></span> (at percentage <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">percentage</span><span class="pl-kos">}</span></span>)"</span> )
 
     <span class="pl-k">return</span> <span class="pl-s1">best_model</span>
 
 
-<span class="pl-en">@<span class="pl-s1">torch</span>.<span class="pl-en">no_grad</span>()</span>
+<span class="pl-en">@<span class="pl-s1">torch</span>.<span class="pl-c1">no_grad</span>()</span>
 <span class="pl-k">def</span> <span class="pl-en">test</span>(<span class="pl-s1">model</span>, <span class="pl-v">X_test</span>, <span class="pl-s1">thres</span><span class="pl-c1">=</span><span class="pl-c1">None</span>):
     <span class="pl-k">if</span> <span class="pl-s1">thres</span> <span class="pl-c1">is</span> <span class="pl-c1">None</span>:
-        <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">model</span>.<span class="pl-s1">thres</span> 
-    <span class="pl-s1">model</span>.<span class="pl-en">eval</span>()
-    <span class="pl-v">X_test</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-en">from_numpy</span>(<span class="pl-v">X_test</span>).<span class="pl-en">type</span>(<span class="pl-s1">torch</span>.<span class="pl-s1">float</span>)    
-    <span class="pl-v">X_test</span> <span class="pl-c1">=</span> <span class="pl-v">X_test</span>.<span class="pl-en">to</span>(<span class="pl-s1">device</span>)
+        <span class="pl-s1">thres</span> <span class="pl-c1">=</span> <span class="pl-s1">model</span>.<span class="pl-c1">thres</span> 
+    <span class="pl-s1">model</span>.<span class="pl-c1">eval</span>()
+    <span class="pl-v">X_test</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-c1">from_numpy</span>(<span class="pl-v">X_test</span>).<span class="pl-c1">type</span>(<span class="pl-s1">torch</span>.<span class="pl-c1">float</span>)    
+    <span class="pl-v">X_test</span> <span class="pl-c1">=</span> <span class="pl-v">X_test</span>.<span class="pl-c1">to</span>(<span class="pl-s1">device</span>)
     <span class="pl-s1">output</span> <span class="pl-c1">=</span> <span class="pl-en">model</span>(<span class="pl-v">X_test</span>)
-    <span class="pl-k">if</span> <span class="pl-s1">model</span>.<span class="pl-s1">criter</span> <span class="pl-c1">==</span> <span class="pl-s">'rmse'</span>:
+    <span class="pl-k">if</span> <span class="pl-s1">model</span>.<span class="pl-c1">criter</span> <span class="pl-c1">==</span> <span class="pl-s">'rmse'</span>:
         <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">getMSEvec</span>(<span class="pl-s1">output</span>,<span class="pl-v">X_test</span>)
-        <span class="pl-s1">rmse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">se2rmse</span>(<span class="pl-s1">mse_vec</span>).<span class="pl-en">cpu</span>().<span class="pl-s1">data</span>.<span class="pl-en">numpy</span>()
-        <span class="pl-s1">idx_mal</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">where</span>(<span class="pl-s1">rmse_vec</span><span class="pl-c1">&gt;</span><span class="pl-s1">thres</span>)
+        <span class="pl-s1">rmse_vec</span> <span class="pl-c1">=</span> <span class="pl-en">se2rmse</span>(<span class="pl-s1">mse_vec</span>).<span class="pl-c1">cpu</span>().<span class="pl-c1">data</span>.<span class="pl-c1">numpy</span>()
+        <span class="pl-s1">idx_mal</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">where</span>(<span class="pl-s1">rmse_vec</span><span class="pl-c1">&gt;</span><span class="pl-s1">thres</span>)
         <span class="pl-s1">ano_score</span> <span class="pl-c1">=</span> <span class="pl-s1">rmse_vec</span>
-    <span class="pl-k">elif</span> <span class="pl-s1">model</span>.<span class="pl-s1">criter</span> <span class="pl-c1">==</span> <span class="pl-s">'mse'</span>:
-        <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-en">mean</span>(<span class="pl-en">getMSEvec</span>(<span class="pl-v">X_test</span>, <span class="pl-s1">output</span>), <span class="pl-s1">dim</span><span class="pl-c1">=</span><span class="pl-c1">1</span>).<span class="pl-en">cpu</span>().<span class="pl-s1">data</span>.<span class="pl-en">numpy</span>()
-        <span class="pl-s1">idx_mal</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">where</span>(<span class="pl-s1">mse_vec</span><span class="pl-c1">&gt;</span><span class="pl-s1">thres</span>)
+    <span class="pl-k">elif</span> <span class="pl-s1">model</span>.<span class="pl-c1">criter</span> <span class="pl-c1">==</span> <span class="pl-s">'mse'</span>:
+        <span class="pl-s1">mse_vec</span> <span class="pl-c1">=</span> <span class="pl-s1">torch</span>.<span class="pl-c1">mean</span>(<span class="pl-en">getMSEvec</span>(<span class="pl-v">X_test</span>, <span class="pl-s1">output</span>), <span class="pl-s1">dim</span><span class="pl-c1">=</span><span class="pl-c1">1</span>).<span class="pl-c1">cpu</span>().<span class="pl-c1">data</span>.<span class="pl-c1">numpy</span>()
+        <span class="pl-s1">idx_mal</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">where</span>(<span class="pl-s1">mse_vec</span><span class="pl-c1">&gt;</span><span class="pl-s1">thres</span>)
         <span class="pl-s1">ano_score</span> <span class="pl-c1">=</span> <span class="pl-s1">mse_vec</span>
     <span class="pl-k">else</span>:
         <span class="pl-k">raise</span> <span class="pl-v">NotImplementedError</span>
     
      
-    <span class="pl-s1">y_pred</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">asarray</span>([<span class="pl-c1">0</span>] <span class="pl-c1">*</span> <span class="pl-en">len</span>(<span class="pl-s1">ano_score</span>))
+    <span class="pl-s1">y_pred</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">asarray</span>([<span class="pl-c1">0</span>] <span class="pl-c1">*</span> <span class="pl-en">len</span>(<span class="pl-s1">ano_score</span>))
     <span class="pl-s1">y_pred</span>[<span class="pl-s1">idx_mal</span>] <span class="pl-c1">=</span> <span class="pl-c1">1</span>
 
     <span class="pl-k">return</span> <span class="pl-s1">y_pred</span>, <span class="pl-s1">ano_score</span>
 
 
 <span class="pl-k">def</span> <span class="pl-en">test_plot</span>(<span class="pl-s1">rmse_vec</span>, <span class="pl-s1">thres</span>, <span class="pl-s1">file_name</span> <span class="pl-c1">=</span> <span class="pl-c1">None</span>, <span class="pl-s1">label</span> <span class="pl-c1">=</span> <span class="pl-c1">None</span>):
-    <span class="pl-s1">plt</span>.<span class="pl-en">figure</span>()
-    <span class="pl-s1">plt</span>.<span class="pl-en">plot</span>(<span class="pl-s1">np</span>.<span class="pl-en">linspace</span>(<span class="pl-c1">0</span>,<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)<span class="pl-c1">-</span><span class="pl-c1">1</span>,<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)),[<span class="pl-s1">thres</span>]<span class="pl-c1">*</span><span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>),<span class="pl-s1">c</span><span class="pl-c1">=</span><span class="pl-s">'black'</span>,<span class="pl-s1">label</span><span class="pl-c1">=</span><span class="pl-s">'99th-threshold'</span>)
+    <span class="pl-s1">plt</span>.<span class="pl-c1">figure</span>()
+    <span class="pl-s1">plt</span>.<span class="pl-c1">plot</span>(<span class="pl-s1">np</span>.<span class="pl-c1">linspace</span>(<span class="pl-c1">0</span>,<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)<span class="pl-c1">-</span><span class="pl-c1">1</span>,<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)),[<span class="pl-s1">thres</span>]<span class="pl-c1">*</span><span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>),<span class="pl-s1">c</span><span class="pl-c1">=</span><span class="pl-s">'black'</span>,<span class="pl-s1">label</span><span class="pl-c1">=</span><span class="pl-s">'99th-threshold'</span>)
     <span class="pl-c"># plt.ylim(0,thres*2.)</span>
 
-    <span class="pl-k">if</span> <span class="pl-s1">label</span> <span class="pl-c1">is</span> <span class="pl-c1">not</span> <span class="pl-c1">None</span>:
-        <span class="pl-s1">idx</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">where</span>(<span class="pl-s1">label</span><span class="pl-c1">==</span><span class="pl-c1">0</span>)[<span class="pl-c1">0</span>]
-        <span class="pl-s1">plt</span>.<span class="pl-en">scatter</span>(<span class="pl-s1">idx</span>, <span class="pl-s1">rmse_vec</span>[<span class="pl-s1">idx</span>], <span class="pl-s1">s</span><span class="pl-c1">=</span><span class="pl-c1">8</span>, <span class="pl-s1">color</span><span class="pl-c1">=</span><span class="pl-s">'blue'</span>, <span class="pl-s1">alpha</span><span class="pl-c1">=</span><span class="pl-c1">0.4</span>, <span class="pl-s1">label</span><span class="pl-c1">=</span><span class="pl-s">'Normal'</span>)
+    <span class="pl-k">if</span> <span class="pl-s1">label</span> <span class="pl-c1"><span class="pl-c1">is</span> <span class="pl-c1">not</span></span> <span class="pl-c1">None</span>:
+        <span class="pl-s1">idx</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">where</span>(<span class="pl-s1">label</span><span class="pl-c1">==</span><span class="pl-c1">0</span>)[<span class="pl-c1">0</span>]
+        <span class="pl-s1">plt</span>.<span class="pl-c1">scatter</span>(<span class="pl-s1">idx</span>, <span class="pl-s1">rmse_vec</span>[<span class="pl-s1">idx</span>], <span class="pl-s1">s</span><span class="pl-c1">=</span><span class="pl-c1">8</span>, <span class="pl-s1">color</span><span class="pl-c1">=</span><span class="pl-s">'blue'</span>, <span class="pl-s1">alpha</span><span class="pl-c1">=</span><span class="pl-c1">0.4</span>, <span class="pl-s1">label</span><span class="pl-c1">=</span><span class="pl-s">'Normal'</span>)
         
-        <span class="pl-s1">idx</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">where</span>(<span class="pl-s1">label</span><span class="pl-c1">==</span><span class="pl-c1">1</span>)[<span class="pl-c1">0</span>]
-        <span class="pl-s1">plt</span>.<span class="pl-en">scatter</span>(<span class="pl-s1">idx</span>, <span class="pl-s1">rmse_vec</span>[<span class="pl-s1">idx</span>], <span class="pl-s1">s</span><span class="pl-c1">=</span><span class="pl-c1">8</span>, <span class="pl-s1">color</span><span class="pl-c1">=</span><span class="pl-s">'red'</span>, <span class="pl-s1">alpha</span><span class="pl-c1">=</span><span class="pl-c1">0.7</span>, <span class="pl-s1">label</span><span class="pl-c1">=</span><span class="pl-s">'Anomalies'</span>)
+        <span class="pl-s1">idx</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">where</span>(<span class="pl-s1">label</span><span class="pl-c1">==</span><span class="pl-c1">1</span>)[<span class="pl-c1">0</span>]
+        <span class="pl-s1">plt</span>.<span class="pl-c1">scatter</span>(<span class="pl-s1">idx</span>, <span class="pl-s1">rmse_vec</span>[<span class="pl-s1">idx</span>], <span class="pl-s1">s</span><span class="pl-c1">=</span><span class="pl-c1">8</span>, <span class="pl-s1">color</span><span class="pl-c1">=</span><span class="pl-s">'red'</span>, <span class="pl-s1">alpha</span><span class="pl-c1">=</span><span class="pl-c1">0.7</span>, <span class="pl-s1">label</span><span class="pl-c1">=</span><span class="pl-s">'Anomalies'</span>)
     <span class="pl-k">else</span>:
-        <span class="pl-s1">plt</span>.<span class="pl-en">scatter</span>(<span class="pl-s1">np</span>.<span class="pl-en">linspace</span>(<span class="pl-c1">0</span>,<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)<span class="pl-c1">-</span><span class="pl-c1">1</span>,<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)),<span class="pl-s1">rmse_vec</span>,<span class="pl-s1">s</span><span class="pl-c1">=</span><span class="pl-c1">8</span>,<span class="pl-s1">alpha</span><span class="pl-c1">=</span><span class="pl-c1">0.4</span>, <span class="pl-s1">label</span><span class="pl-c1">=</span><span class="pl-s">'Test samples'</span> )
+        <span class="pl-s1">plt</span>.<span class="pl-c1">scatter</span>(<span class="pl-s1">np</span>.<span class="pl-c1">linspace</span>(<span class="pl-c1">0</span>,<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)<span class="pl-c1">-</span><span class="pl-c1">1</span>,<span class="pl-en">len</span>(<span class="pl-s1">rmse_vec</span>)),<span class="pl-s1">rmse_vec</span>,<span class="pl-s1">s</span><span class="pl-c1">=</span><span class="pl-c1">8</span>,<span class="pl-s1">alpha</span><span class="pl-c1">=</span><span class="pl-c1">0.4</span>, <span class="pl-s1">label</span><span class="pl-c1">=</span><span class="pl-s">'Test samples'</span> )
     
-    <span class="pl-s1">plt</span>.<span class="pl-en">legend</span>()
-    <span class="pl-s1">plt</span>.<span class="pl-en">xlabel</span>(<span class="pl-s">'Sample NO.'</span>)
-    <span class="pl-s1">plt</span>.<span class="pl-en">ylabel</span>(<span class="pl-s">'Anomaly Score (RMSE)'</span>)
-    <span class="pl-s1">plt</span>.<span class="pl-en">title</span>(<span class="pl-s">'Per-sample Score'</span>)
+    <span class="pl-s1">plt</span>.<span class="pl-c1">legend</span>()
+    <span class="pl-s1">plt</span>.<span class="pl-c1">xlabel</span>(<span class="pl-s">'Sample NO.'</span>)
+    <span class="pl-s1">plt</span>.<span class="pl-c1">ylabel</span>(<span class="pl-s">'Anomaly Score (RMSE)'</span>)
+    <span class="pl-s1">plt</span>.<span class="pl-c1">title</span>(<span class="pl-s">'Per-sample Score'</span>)
     <span class="pl-k">if</span> <span class="pl-s1">file_name</span> <span class="pl-c1">is</span> <span class="pl-c1">None</span>:
-        <span class="pl-s1">plt</span>.<span class="pl-en">show</span>()
+        <span class="pl-s1">plt</span>.<span class="pl-c1">show</span>()
     <span class="pl-k">else</span>:
-        <span class="pl-s1">plt</span>.<span class="pl-s1">rcParams</span>.<span class="pl-en">update</span>({<span class="pl-s">'figure.dpi'</span>:<span class="pl-c1">300</span>})
-        <span class="pl-s1">plt</span>.<span class="pl-en">savefig</span>(<span class="pl-s1">file_name</span>)
+        <span class="pl-s1">plt</span>.<span class="pl-c1">rcParams</span>.<span class="pl-c1">update</span>({<span class="pl-s">'figure.dpi'</span>:<span class="pl-c1">300</span>})
+        <span class="pl-s1">plt</span>.<span class="pl-c1">savefig</span>(<span class="pl-s1">file_name</span>)
 
 
 
-<span class="pl-k">def</span> <span class="pl-v">TPR_FPR</span>(<span class="pl-s1">y_prob</span>, <span class="pl-s1">y_true</span>, <span class="pl-s1">thres</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">True</span>): 
-    <span class="pl-s1">y_true</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">asarray</span>(<span class="pl-s1">y_true</span>)
-    <span class="pl-s1">y_prob</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">asarray</span>(<span class="pl-s1">y_prob</span>)
-    <span class="pl-s1">y_pred</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">where</span>(<span class="pl-s1">y_prob</span> <span class="pl-c1">&gt;=</span> <span class="pl-s1">thres</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>)
+<span class="pl-k">def</span> <span class="pl-en">TPR_FPR</span>(<span class="pl-s1">y_prob</span>, <span class="pl-s1">y_true</span>, <span class="pl-s1">thres</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">True</span>): 
+    <span class="pl-s1">y_true</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">asarray</span>(<span class="pl-s1">y_true</span>)
+    <span class="pl-s1">y_prob</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">asarray</span>(<span class="pl-s1">y_prob</span>)
+    <span class="pl-s1">y_pred</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">where</span>(<span class="pl-s1">y_prob</span> <span class="pl-c1">&gt;=</span> <span class="pl-s1">thres</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>)
 
-    <span class="pl-s1">fp</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>))
-    <span class="pl-s1">tp</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>))
-    <span class="pl-s1">fn</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>))
-    <span class="pl-s1">tn</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>))
+    <span class="pl-s1">fp</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>))
+    <span class="pl-s1">tp</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>))
+    <span class="pl-s1">fn</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>))
+    <span class="pl-s1">tn</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>))
 
     <span class="pl-s1">fpr</span> <span class="pl-c1">=</span> (<span class="pl-s1">fp</span> <span class="pl-c1">/</span> (<span class="pl-s1">fp</span> <span class="pl-c1">+</span> <span class="pl-s1">tn</span> <span class="pl-c1">+</span> <span class="pl-c1">1e-10</span>))
     <span class="pl-s1">tpr</span> <span class="pl-c1">=</span> (<span class="pl-s1">tp</span> <span class="pl-c1">/</span> (<span class="pl-s1">tp</span> <span class="pl-c1">+</span> <span class="pl-s1">fn</span> <span class="pl-c1">+</span> <span class="pl-c1">1e-10</span>))
@@ -1393,66 +1393,66 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 
 <span class="pl-k">def</span> <span class="pl-en">multi_fpr_tpr</span>(<span class="pl-s1">y_prob</span>, <span class="pl-s1">y_true</span>, <span class="pl-s1">thres_max</span>, <span class="pl-s1">thres_min</span><span class="pl-c1">=</span><span class="pl-c1">0</span>, <span class="pl-s1">split</span> <span class="pl-c1">=</span> <span class="pl-c1">300</span>, <span class="pl-s1">is_P_mal</span><span class="pl-c1">=</span><span class="pl-c1">True</span>): 
-    <span class="pl-s1">y_true</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">asarray</span>(<span class="pl-s1">y_true</span>)
-    <span class="pl-s1">y_prob</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">asarray</span>(<span class="pl-s1">y_prob</span>)
+    <span class="pl-s1">y_true</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">asarray</span>(<span class="pl-s1">y_true</span>)
+    <span class="pl-s1">y_prob</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">asarray</span>(<span class="pl-s1">y_prob</span>)
     <span class="pl-s1">fpr</span> <span class="pl-c1">=</span> []
     <span class="pl-s1">tpr</span> <span class="pl-c1">=</span> []
 
-    <span class="pl-s1">thresholds</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">linspace</span>(<span class="pl-s1">thres_min</span>, <span class="pl-s1">thres_max</span>, <span class="pl-s1">split</span>)
+    <span class="pl-s1">thresholds</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">linspace</span>(<span class="pl-s1">thres_min</span>, <span class="pl-s1">thres_max</span>, <span class="pl-s1">split</span>)
     <span class="pl-k">for</span> <span class="pl-s1">threshold</span> <span class="pl-c1">in</span> <span class="pl-s1">thresholds</span>:
         <span class="pl-k">if</span> <span class="pl-s1">is_P_mal</span>: 
-            <span class="pl-s1">y_pred</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">where</span>(<span class="pl-s1">y_prob</span> <span class="pl-c1">&gt;=</span> <span class="pl-s1">threshold</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>)
+            <span class="pl-s1">y_pred</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">where</span>(<span class="pl-s1">y_prob</span> <span class="pl-c1">&gt;=</span> <span class="pl-s1">threshold</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>)
         <span class="pl-k">else</span>:
-            <span class="pl-s1">y_pred</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">where</span>(<span class="pl-s1">y_prob</span> <span class="pl-c1">&lt;=</span> <span class="pl-s1">threshold</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>)
+            <span class="pl-s1">y_pred</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">where</span>(<span class="pl-s1">y_prob</span> <span class="pl-c1">&lt;=</span> <span class="pl-s1">threshold</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>)
 
-        <span class="pl-s1">fp</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>))
-        <span class="pl-s1">tp</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>))
+        <span class="pl-s1">fp</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>))
+        <span class="pl-s1">tp</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>))
 
-        <span class="pl-s1">fn</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>))
-        <span class="pl-s1">tn</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>))
+        <span class="pl-s1">fn</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>))
+        <span class="pl-s1">tn</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">sum</span>((<span class="pl-s1">y_pred</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) <span class="pl-c1">&amp;</span> (<span class="pl-s1">y_true</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>))
 
         <span class="pl-c"># print('fp+tn', fp+tn, 'tp + fn', tp + fn)</span>
-        <span class="pl-s1">fpr</span>.<span class="pl-en">append</span>(<span class="pl-s1">fp</span> <span class="pl-c1">/</span> (<span class="pl-s1">fp</span> <span class="pl-c1">+</span> <span class="pl-s1">tn</span>))
-        <span class="pl-s1">tpr</span>.<span class="pl-en">append</span>(<span class="pl-s1">tp</span> <span class="pl-c1">/</span> (<span class="pl-s1">tp</span> <span class="pl-c1">+</span> <span class="pl-s1">fn</span>))
+        <span class="pl-s1">fpr</span>.<span class="pl-c1">append</span>(<span class="pl-s1">fp</span> <span class="pl-c1">/</span> (<span class="pl-s1">fp</span> <span class="pl-c1">+</span> <span class="pl-s1">tn</span>))
+        <span class="pl-s1">tpr</span>.<span class="pl-c1">append</span>(<span class="pl-s1">tp</span> <span class="pl-c1">/</span> (<span class="pl-s1">tp</span> <span class="pl-c1">+</span> <span class="pl-s1">fn</span>))
 
     <span class="pl-k">return</span> <span class="pl-s1">fpr</span>, <span class="pl-s1">tpr</span>, <span class="pl-s1">thresholds</span>
 
 <span class="pl-k">def</span> <span class="pl-en">eval_roc</span>(<span class="pl-s1">probs</span>, <span class="pl-s1">labels</span>, <span class="pl-s1">thres_max</span>, <span class="pl-s1">thres_min</span><span class="pl-c1">=</span><span class="pl-c1">0</span>, <span class="pl-s1">split</span><span class="pl-c1">=</span><span class="pl-c1">300</span>, <span class="pl-s1">is_P_mal</span><span class="pl-c1">=</span><span class="pl-c1">True</span>, <span class="pl-s1">plot</span><span class="pl-c1">=</span><span class="pl-c1">True</span>, <span class="pl-s1">verbose</span><span class="pl-c1">=</span><span class="pl-c1">True</span>):
     <span class="pl-s1">fprs</span>, <span class="pl-s1">tprs</span>, <span class="pl-s1">thresholds</span> <span class="pl-c1">=</span> <span class="pl-en">multi_fpr_tpr</span>(<span class="pl-s1">probs</span>, <span class="pl-s1">labels</span>, <span class="pl-s1">thres_max</span>, <span class="pl-s1">thres_min</span><span class="pl-c1">=</span><span class="pl-s1">thres_min</span>, <span class="pl-s1">split</span><span class="pl-c1">=</span><span class="pl-s1">split</span>, <span class="pl-s1">is_P_mal</span><span class="pl-c1">=</span><span class="pl-s1">is_P_mal</span>)
-    <span class="pl-s1">roc_auc</span> <span class="pl-c1">=</span> <span class="pl-s1">metrics</span>.<span class="pl-en">auc</span>(<span class="pl-s1">fprs</span>, <span class="pl-s1">tprs</span>)
+    <span class="pl-s1">roc_auc</span> <span class="pl-c1">=</span> <span class="pl-s1">metrics</span>.<span class="pl-c1">auc</span>(<span class="pl-s1">fprs</span>, <span class="pl-s1">tprs</span>)
     <span class="pl-k">if</span> <span class="pl-s1">verbose</span>: <span class="pl-en">print</span>(<span class="pl-s">'roc_auc:'</span>,<span class="pl-s1">roc_auc</span>)
     
     <span class="pl-k">if</span> <span class="pl-s1">plot</span>:
-        <span class="pl-s1">plt</span>.<span class="pl-en">figure</span>()
-        <span class="pl-s1">plt</span>.<span class="pl-en">title</span>(<span class="pl-s">'Receiver Operating Characteristic'</span>)
-        <span class="pl-s1">plt</span>.<span class="pl-en">plot</span>(<span class="pl-s1">fprs</span>, <span class="pl-s1">tprs</span>, <span class="pl-s">'b'</span>, <span class="pl-s1">label</span> <span class="pl-c1">=</span> <span class="pl-s">'AUC = %0.2f'</span> <span class="pl-c1">%</span> <span class="pl-s1">roc_auc</span>)
-        <span class="pl-s1">plt</span>.<span class="pl-en">legend</span>(<span class="pl-s1">loc</span> <span class="pl-c1">=</span> <span class="pl-s">'lower right'</span>)
-        <span class="pl-s1">plt</span>.<span class="pl-en">xlim</span>([<span class="pl-c1">0</span>, <span class="pl-c1">1</span>])
-        <span class="pl-s1">plt</span>.<span class="pl-en">ylim</span>([<span class="pl-c1">0</span>, <span class="pl-c1">1</span>])
-        <span class="pl-s1">plt</span>.<span class="pl-en">ylabel</span>(<span class="pl-s">'True Positive Rate'</span>)
-        <span class="pl-s1">plt</span>.<span class="pl-en">xlabel</span>(<span class="pl-s">'False Positive Rate'</span>)
-        <span class="pl-s1">plt</span>.<span class="pl-en">show</span>()
+        <span class="pl-s1">plt</span>.<span class="pl-c1">figure</span>()
+        <span class="pl-s1">plt</span>.<span class="pl-c1">title</span>(<span class="pl-s">'Receiver Operating Characteristic'</span>)
+        <span class="pl-s1">plt</span>.<span class="pl-c1">plot</span>(<span class="pl-s1">fprs</span>, <span class="pl-s1">tprs</span>, <span class="pl-s">'b'</span>, <span class="pl-s1">label</span> <span class="pl-c1">=</span> <span class="pl-s">'AUC = %0.2f'</span> <span class="pl-c1">%</span> <span class="pl-s1">roc_auc</span>)
+        <span class="pl-s1">plt</span>.<span class="pl-c1">legend</span>(<span class="pl-s1">loc</span> <span class="pl-c1">=</span> <span class="pl-s">'lower right'</span>)
+        <span class="pl-s1">plt</span>.<span class="pl-c1">xlim</span>([<span class="pl-c1">0</span>, <span class="pl-c1">1</span>])
+        <span class="pl-s1">plt</span>.<span class="pl-c1">ylim</span>([<span class="pl-c1">0</span>, <span class="pl-c1">1</span>])
+        <span class="pl-s1">plt</span>.<span class="pl-c1">ylabel</span>(<span class="pl-s">'True Positive Rate'</span>)
+        <span class="pl-s1">plt</span>.<span class="pl-c1">xlabel</span>(<span class="pl-s">'False Positive Rate'</span>)
+        <span class="pl-s1">plt</span>.<span class="pl-c1">show</span>()
     
-    <span class="pl-s1">optimal_idx</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">argmax</span>(<span class="pl-s1">np</span>.<span class="pl-en">asarray</span>(<span class="pl-s1">tprs</span>) <span class="pl-c1">-</span> <span class="pl-s1">np</span>.<span class="pl-en">asarray</span>(<span class="pl-s1">fprs</span>))
+    <span class="pl-s1">optimal_idx</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">argmax</span>(<span class="pl-s1">np</span>.<span class="pl-c1">asarray</span>(<span class="pl-s1">tprs</span>) <span class="pl-c1">-</span> <span class="pl-s1">np</span>.<span class="pl-c1">asarray</span>(<span class="pl-s1">fprs</span>))
     <span class="pl-s1">optimal_threshold</span> <span class="pl-c1">=</span> <span class="pl-s1">thresholds</span>[<span class="pl-s1">optimal_idx</span>]
     <span class="pl-k">return</span> <span class="pl-s1">roc_auc</span>, <span class="pl-s1">optimal_threshold</span>
 
 <span class="pl-k">class</span> <span class="pl-v">Normalizer</span>:
     <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">train_data</span>, <span class="pl-s1">clip</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">delta</span><span class="pl-c1">=</span><span class="pl-c1">1e-10</span>):
-        <span class="pl-s1">self</span>.<span class="pl-s1">train_min</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">min</span>(<span class="pl-s1">train_data</span>, <span class="pl-s1">axis</span><span class="pl-c1">=</span><span class="pl-c1">0</span>)
-        <span class="pl-s1">self</span>.<span class="pl-s1">train_max</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">max</span>(<span class="pl-s1">train_data</span>, <span class="pl-s1">axis</span><span class="pl-c1">=</span><span class="pl-c1">0</span>)
-        <span class="pl-s1">self</span>.<span class="pl-s1">clip</span> <span class="pl-c1">=</span> <span class="pl-s1">clip</span>
-        <span class="pl-s1">self</span>.<span class="pl-s1">delta</span> <span class="pl-c1">=</span> <span class="pl-s1">delta</span>
+        <span class="pl-s1">self</span>.<span class="pl-c1">train_min</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">min</span>(<span class="pl-s1">train_data</span>, <span class="pl-s1">axis</span><span class="pl-c1">=</span><span class="pl-c1">0</span>)
+        <span class="pl-s1">self</span>.<span class="pl-c1">train_max</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">max</span>(<span class="pl-s1">train_data</span>, <span class="pl-s1">axis</span><span class="pl-c1">=</span><span class="pl-c1">0</span>)
+        <span class="pl-s1">self</span>.<span class="pl-c1">clip</span> <span class="pl-c1">=</span> <span class="pl-s1">clip</span>
+        <span class="pl-s1">self</span>.<span class="pl-c1">delta</span> <span class="pl-c1">=</span> <span class="pl-s1">delta</span>
 
     <span class="pl-k">def</span> <span class="pl-en">transform</span>(<span class="pl-s1">self</span>, <span class="pl-s1">data</span>):
-        <span class="pl-k">return</span> (<span class="pl-s1">data</span> <span class="pl-c1">-</span> <span class="pl-s1">self</span>.<span class="pl-s1">train_min</span>) <span class="pl-c1">/</span> (<span class="pl-s1">self</span>.<span class="pl-s1">train_max</span> <span class="pl-c1">-</span> <span class="pl-s1">self</span>.<span class="pl-s1">train_min</span> <span class="pl-c1">+</span> <span class="pl-s1">self</span>.<span class="pl-s1">delta</span>)
+        <span class="pl-k">return</span> (<span class="pl-s1">data</span> <span class="pl-c1">-</span> <span class="pl-s1">self</span>.<span class="pl-c1">train_min</span>) <span class="pl-c1">/</span> (<span class="pl-s1">self</span>.<span class="pl-c1">train_max</span> <span class="pl-c1">-</span> <span class="pl-s1">self</span>.<span class="pl-c1">train_min</span> <span class="pl-c1">+</span> <span class="pl-s1">self</span>.<span class="pl-c1">delta</span>)
 
     <span class="pl-k">def</span> <span class="pl-en">denorm</span>(<span class="pl-s1">self</span>, <span class="pl-s1">data</span>):
-        <span class="pl-k">return</span> <span class="pl-s1">data</span> <span class="pl-c1">*</span> (<span class="pl-s1">self</span>.<span class="pl-s1">train_max</span> <span class="pl-c1">-</span> <span class="pl-s1">self</span>.<span class="pl-s1">train_min</span>) <span class="pl-c1">+</span> <span class="pl-s1">self</span>.<span class="pl-s1">train_min</span>
+        <span class="pl-k">return</span> <span class="pl-s1">data</span> <span class="pl-c1">*</span> (<span class="pl-s1">self</span>.<span class="pl-c1">train_max</span> <span class="pl-c1">-</span> <span class="pl-s1">self</span>.<span class="pl-c1">train_min</span>) <span class="pl-c1">+</span> <span class="pl-s1">self</span>.<span class="pl-c1">train_min</span>
 
     <span class="pl-k">def</span> <span class="pl-en">denorm_query</span>(<span class="pl-s1">self</span>, <span class="pl-s1">index</span>, <span class="pl-s1">norm_value</span>):
-        <span class="pl-s1">range</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-s1">train_max</span>[<span class="pl-s1">index</span>] <span class="pl-c1">-</span> <span class="pl-s1">self</span>.<span class="pl-s1">train_min</span>[<span class="pl-s1">index</span>]
-        <span class="pl-k">return</span> <span class="pl-s1">norm_value</span> <span class="pl-c1">*</span> <span class="pl-s1">range</span> <span class="pl-c1">+</span> <span class="pl-s1">self</span>.<span class="pl-s1">train_min</span>[<span class="pl-s1">index</span>]</pre></div></div>
+        <span class="pl-s1">range</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-c1">train_max</span>[<span class="pl-s1">index</span>] <span class="pl-c1">-</span> <span class="pl-s1">self</span>.<span class="pl-c1">train_min</span>[<span class="pl-s1">index</span>]
+        <span class="pl-k">return</span> <span class="pl-s1">norm_value</span> <span class="pl-c1">*</span> <span class="pl-s1">range</span> <span class="pl-c1">+</span> <span class="pl-s1">self</span>.<span class="pl-c1">train_min</span>[<span class="pl-s1">index</span>]</pre></div></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

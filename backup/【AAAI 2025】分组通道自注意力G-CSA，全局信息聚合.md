@@ -1,0 +1,1 @@
+[【AAAI 2025】分组通道自注意力G-CSA，全局信息聚合](https://mp.weixin.qq.com/s/GKUDOIgZJtg1QfdmFzSf2w)

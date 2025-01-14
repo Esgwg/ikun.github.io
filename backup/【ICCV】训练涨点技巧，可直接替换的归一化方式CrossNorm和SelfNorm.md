@@ -1,0 +1,1 @@
+[【ICCV】训练涨点技巧，可直接替换的归一化方式CrossNorm和SelfNorm](https://mp.weixin.qq.com/s/OBOmJVm0wZHAb8-qSpfjjA)

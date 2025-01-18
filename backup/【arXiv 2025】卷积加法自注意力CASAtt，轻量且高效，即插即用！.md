@@ -1,0 +1,1 @@
+[【arXiv 2025】卷积加法自注意力CASAtt，轻量且高效，即插即用！](https://mp.weixin.qq.com/s/iyhh4T3MOxDU6M9oVPH3DQ)

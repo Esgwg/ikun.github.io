@@ -1,0 +1,1 @@
+[FightingCV 代码库， 包含 Attention,Backbone, MLP, Re-parameter, Convolution](https://github.com/xmu-xiaoma666/External-Attention-pytorch/tree/master?tab=readme-ov-file#re-parameter-series)
